@@ -6,8 +6,8 @@ import "~~/styles/globals.css";
 import { getMetadata } from "~~/utils/scaffold-eth/getMetadata";
 
 export const metadata = getMetadata({
-  title: "Scaffold-ETH 2 App",
-  description: "Built with 🏗 Scaffold-ETH 2",
+  title: "QDay Starter Kit",
+  description: "Build privacy-preserving dApps on QDay — the quantum-resistant EVM L2 by Abelian",
 });
 
 const ScaffoldEthApp = ({ children }: { children: React.ReactNode }) => {

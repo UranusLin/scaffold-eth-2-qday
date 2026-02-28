@@ -126,6 +126,10 @@ const config: HardhatUserConfig = {
       url: "https://forno.celo-sepolia.celo-testnet.org/",
       accounts: [deployerPrivateKey],
     },
+    qdayTestnet: {
+      url: "https://rpc.qday.info",
+      accounts: [deployerPrivateKey],
+    },
   },
   // Configuration for harhdat-verify plugin
   etherscan: {

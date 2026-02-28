@@ -1,5 +1,5 @@
 import * as chains from "viem/chains";
-import scaffoldConfig from "~~/scaffold.config";
+import scaffoldConfig, { qdayTestnet } from "~~/scaffold.config";
 
 type ChainAttributes = {
   // color | [lightThemeColor, darkThemeColor]
@@ -90,12 +90,20 @@ export const NETWORKS_EXTRA_DATA: Record<string, ChainAttributes> = {
   [chains.celoSepolia.id]: {
     color: "#476520",
   },
+  [qdayTestnet.id]: {
+    color: "#7c3aed",
+  },
 };
 
 /**
  * Gives the block explorer transaction URL, returns empty string if the network is a local chain
  */
 export function getBlockExplorerTxLink(chainId: number, txnHash: string) {
+  // Check custom chains first (e.g. QDay Testnet)
+  if (chainId === qdayTestnet.id) {
+    return `${qdayTestnet.blockExplorers.default.url}/tx/${txnHash}`;
+  }
+
   const chainNames = Object.keys(chains);
 
   const targetChainArr = chainNames.filter(chainName => {
