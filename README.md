@@ -1,28 +1,24 @@
-# 🏗 Scaffold-ETH 2
+# QDay Starter Kit
+
+A developer toolkit for building privacy-preserving dApps on **QDay** — the quantum-resistant EVM Layer 2 powered by [Abelian](https://abelian.info).
+
+Forked from [Scaffold-ETH 2](https://github.com/scaffold-eth/scaffold-eth-2).
 
 <h4 align="center">
-  <a href="https://docs.scaffoldeth.io">Documentation</a> |
-  <a href="https://scaffoldeth.io">Website</a>
+  <a href="https://community.qday.io/guide/">QDay Docs</a> |
+  <a href="https://explorer.qday.info">Explorer</a> |
+  <a href="https://fi.qday.info/en/dapps/faucet">Faucet</a> |
+  <a href="https://docs.scaffoldeth.io">SE-2 Docs</a>
 </h4>
 
-🧪 An open-source, up-to-date toolkit for building decentralized applications (dapps) on the Ethereum blockchain. It's designed to make it easier for developers to create and deploy smart contracts and build user interfaces that interact with those contracts.
+Built using NextJS, RainbowKit, Hardhat, Wagmi, Viem, and TypeScript.
 
-> [!NOTE]
-> 🤖 Scaffold-ETH 2 is AI-ready! It has everything agents need to build on Ethereum. Check `.agents/`, `.claude/`, `.opencode` or `.cursor/` for more info.
-
-⚙️ Built using NextJS, RainbowKit, Foundry/Hardhat, Wagmi, Viem, and Typescript.
-
-- ✅ **Contract Hot Reload**: Your frontend auto-adapts to your smart contract as you edit it.
-- 🪝 **[Custom hooks](https://docs.scaffoldeth.io/hooks/)**: Collection of React hooks wrapper around [wagmi](https://wagmi.sh/) to simplify interactions with smart contracts with typescript autocompletion.
-- 🧱 [**Components**](https://docs.scaffoldeth.io/components/): Collection of common web3 components to quickly build your frontend.
-- 🔥 **Burner Wallet & Local Faucet**: Quickly test your application with a burner wallet and local faucet.
-- 🔐 **Integration with Wallet Providers**: Connect to different wallet providers and interact with the Ethereum network.
-
-![Debug Contracts tab](https://github.com/scaffold-eth/scaffold-eth-2/assets/55535804/b237af0c-5027-4849-a5c1-2e31495cccb1)
+- **Contract Hot Reload**: Your frontend auto-adapts to your smart contract as you edit it.
+- **Custom hooks**: React hooks wrapping [wagmi](https://wagmi.sh/) for simplified contract interactions with TypeScript autocompletion.
+- **Web3 Components**: Common web3 UI components to quickly build your frontend.
+- **Burner Wallet & Local Faucet**: Quickly test your application locally.
 
 ## Requirements
-
-Before you begin, you need to install the following tools:
 
 - [Node (>= v20.18.3)](https://nodejs.org/en/download/)
 - Yarn ([v1](https://classic.yarnpkg.com/en/docs/install/) or [v2+](https://yarnpkg.com/getting-started/install))
@@ -30,62 +26,106 @@ Before you begin, you need to install the following tools:
 
 ## Quickstart
 
-To get started with Scaffold-ETH 2, follow the steps below:
+1. Clone and install dependencies:
 
-1. Install the latest version of Scaffold-ETH 2
-
+```bash
+git clone https://github.com/AbelianLabs/scaffold-eth-2-qday.git
+cd scaffold-eth-2-qday
+yarn install
 ```
-npx create-eth@latest
-```
 
-This command will install all the necessary packages and dependencies, so it might take a while.
+2. Start a local blockchain (in terminal 1):
 
-> [!NOTE]
-> You can also initialize your project with one of our extensions to add specific features or starter-kits. Learn more in our [extensions documentation](https://docs.scaffoldeth.io/extensions/).
-
-2. Run a local network in the first terminal:
-
-```
+```bash
 yarn chain
 ```
 
-This command starts a local Ethereum network that runs on your local machine and can be used for testing and development. Learn how to [customize your network configuration](https://docs.scaffoldeth.io/quick-start/environment#1-initialize-a-local-blockchain).
+3. Deploy contracts locally (in terminal 2):
 
-3. On a second terminal, deploy the test contract:
-
-```
+```bash
 yarn deploy
 ```
 
-This command deploys a test smart contract to the local network. You can find more information about how to customize your contract and deployment script in our [documentation](https://docs.scaffoldeth.io/quick-start/environment#2-deploy-your-smart-contract).
+4. Start the frontend (in terminal 3):
 
-4. On a third terminal, start your NextJS app:
-
-```
+```bash
 yarn start
 ```
 
-Visit your app on: `http://localhost:3000`. You can interact with your smart contract using the `Debug Contracts` page. You can tweak the app config in `packages/nextjs/scaffold.config.ts`.
+Visit `http://localhost:3000` to interact with your smart contract using the **Debug Contracts** page.
 
-**What's next**:
+## Deploy to QDay Testnet
 
-Visit the [What's next section of our docs](https://docs.scaffoldeth.io/quick-start/environment#whats-next) to learn how to:
+1. Generate a deployer account (or import an existing key):
 
-- Edit your smart contracts
-- Edit your deployment scripts
-- Customize your frontend
-- Edit the app config
-- Writing and running tests
-- [Setting up external services and API keys](https://docs.scaffoldeth.io/deploying/deploy-smart-contracts#configuration-of-third-party-services-for-production-grade-apps)
+```bash
+yarn generate
+# or
+yarn account:import
+```
+
+2. Copy the deployer address:
+
+```bash
+yarn account
+```
+
+3. Get testnet QDAY from the [Faucet](https://fi.qday.info/en/dapps/faucet).
+
+4. Deploy to QDay Testnet:
+
+```bash
+yarn deploy --network qdayTestnet
+```
+
+5. Update `packages/nextjs/scaffold.config.ts` to set `qdayTestnet` as the first target network, or switch via the wallet connect dropdown in the UI.
+
+## QDay Testnet Network Parameters
+
+| Parameter       | Value                        |
+| --------------- | ---------------------------- |
+| Network Name    | QDay Testnet                 |
+| Chain ID        | 44003                        |
+| RPC URL         | https://rpc.qday.info        |
+| Currency Symbol | QDAY                         |
+| Block Explorer  | https://explorer.qday.info   |
+
+## Project Structure
+
+```
+scaffold-eth-2-qday/
+├── packages/
+│   ├── hardhat/          # Smart contracts & deployment
+│   │   ├── contracts/    # Solidity contracts
+│   │   ├── deploy/       # Deployment scripts
+│   │   └── test/         # Contract tests
+│   └── nextjs/           # React frontend (Next.js App Router)
+│       ├── app/          # Pages
+│       ├── components/   # UI components
+│       ├── hooks/        # Custom React hooks
+│       └── contracts/    # Auto-generated ABIs (from yarn deploy)
+```
+
+## Useful Commands
+
+```bash
+yarn chain              # Start local blockchain
+yarn deploy             # Deploy contracts locally
+yarn start              # Start frontend at localhost:3000
+yarn test               # Run Hardhat tests
+yarn compile            # Compile contracts only
+yarn deploy --network qdayTestnet   # Deploy to QDay Testnet
+yarn verify --network qdayTestnet   # Verify contracts on explorer
+yarn next:build         # Build frontend for production
+yarn lint               # Lint all packages
+yarn format             # Format all packages
+```
 
 ## Documentation
 
-Visit our [docs](https://docs.scaffoldeth.io) to learn all the technical details and guides of Scaffold-ETH 2.
-
-To know more about its features, check out our [website](https://scaffoldeth.io).
-
-## Contributing to Scaffold-ETH 2
-
-We welcome contributions to Scaffold-ETH 2!
-
-Please see [CONTRIBUTING.MD](https://github.com/scaffold-eth/scaffold-eth-2/blob/main/CONTRIBUTING.md) for more information and guidelines for contributing to Scaffold-ETH 2.
+- [QDay Docs](https://community.qday.io/guide/) — QDay network documentation
+- [QDay Explorer](https://explorer.qday.info) — Block explorer for QDay Testnet
+- [QDay Faucet](https://fi.qday.info/en/dapps/faucet) — Get testnet QDAY tokens
+- [Scaffold-ETH 2 Docs](https://docs.scaffoldeth.io) — Full SE-2 technical docs and guides
+- [Hardhat Docs](https://hardhat.org/docs) — Hardhat development environment
+- [Solidity Docs](https://docs.soliditylang.org) — Solidity language reference
